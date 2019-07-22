@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8.0</LangVersion>
+    <NullableContextOptions>enable</NullableContextOptions>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Kornei Dontsov</Authors>
+    <Company>Korneev Soft</Company>
+  </PropertyGroup>
+
+</Project>
