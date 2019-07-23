@@ -70,7 +70,7 @@ namespace Arcanum.DataContracts
 			}
 		}
 
-		public static DataTypeInfo construct (Type dataType)
+		internal static DataTypeInfo construct (Type dataType, IDataTypeInfoStorage? maybeStorage)
 		{
 			if (dataType.IsClass is false && dataType.IsValueType is false)
 			{
@@ -82,7 +82,7 @@ namespace Arcanum.DataContracts
 			if (dataType.IsNested)
 			{
 				var declaringType = dataType.DeclaringType;
-				var declaringDataTypeInfo = construct(declaringType);
+				var declaringDataTypeInfo = maybeStorage?.Get(declaringType) ?? construct(declaringType, null);
 				if (declaringDataTypeInfo.asDiscriminatedUnionInfo != null
 					&& declaringDataTypeInfo.asDiscriminatedUnionInfo.caseInfosByTypes.TryGetValue(
 						dataType,
@@ -96,5 +96,7 @@ namespace Arcanum.DataContracts
 
 			return new DataTypeInfo(dataType);
 		}
+
+		public static DataTypeInfo Construct (Type dataType) => construct(dataType, maybeStorage: null);
 	}
 }
