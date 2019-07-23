@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
 
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Arcanum.DataContracts
@@ -20,10 +21,10 @@ namespace Arcanum.DataContracts
 			this.typeInfo = typeInfo;
 			this.declaringUnionInfo = declaringUnionInfo;
 
-			name = (
-				typeInfo.type.GetCustomAttribute(typeof(IDataCaseAttribute), inherit: true)
-				as IDataCaseAttribute
-			)
+			name = typeInfo.type
+			.GetCustomAttributes()
+			.OfType<IDataCaseAttribute>()
+			.FirstOrDefault()
 			?.name
 			?? typeInfo.type.Name;
 		}
