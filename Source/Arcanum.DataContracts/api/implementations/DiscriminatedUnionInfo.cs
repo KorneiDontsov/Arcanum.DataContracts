@@ -15,7 +15,7 @@ namespace Arcanum.DataContracts
 
 		public IImmutableDictionary<String, DiscriminatedUnionCaseInfo> caseInfosByNames { get; }
 
-		public Type type => typeInfo.type;
+		public Type dataType => typeInfo.dataType;
 
 		internal DiscriminatedUnionInfo (
 			DataTypeInfo typeInfo,
@@ -24,7 +24,7 @@ namespace Arcanum.DataContracts
 		{
 			this.typeInfo = typeInfo;
 			caseInfos = caseInfoListConstructor(this);
-			caseInfosByTypes = caseInfos.ToImmutableDictionary(i => i.type);
+			caseInfosByTypes = caseInfos.ToImmutableDictionary(i => i.dataType);
 			caseInfosByNames = caseInfos.ToImmutableDictionary(i => i.name);
 		}
 	}

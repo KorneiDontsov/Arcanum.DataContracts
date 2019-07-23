@@ -9,7 +9,7 @@ namespace Arcanum.DataContracts
 {
 	public sealed class DataTypeInfo
 	{
-		public Type type { get; }
+		public Type dataType { get; }
 
 		public DiscriminatedUnionInfo? asDiscriminatedUnionInfo { get; }
 
@@ -20,7 +20,7 @@ namespace Arcanum.DataContracts
 			DiscriminatedUnionInfo? declaringUnionInfo = null
 		)
 		{
-			type = dataType;
+			this.dataType = dataType;
 
 			if (declaringUnionInfo != null)
 			{

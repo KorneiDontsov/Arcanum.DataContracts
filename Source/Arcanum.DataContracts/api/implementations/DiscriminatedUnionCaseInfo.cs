@@ -14,19 +14,19 @@ namespace Arcanum.DataContracts
 
 		public String name { get; }
 
-		public Type type => typeInfo.type;
+		public Type dataType => typeInfo.dataType;
 
 		internal DiscriminatedUnionCaseInfo (DataTypeInfo typeInfo, DiscriminatedUnionInfo declaringUnionInfo)
 		{
 			this.typeInfo = typeInfo;
 			this.declaringUnionInfo = declaringUnionInfo;
 
-			name = typeInfo.type
+			name = typeInfo.dataType
 			.GetCustomAttributes()
 			.OfType<IDataCaseAttribute>()
 			.FirstOrDefault()
 			?.name
-			?? typeInfo.type.Name;
+			?? typeInfo.dataType.Name;
 		}
 	}
 }
