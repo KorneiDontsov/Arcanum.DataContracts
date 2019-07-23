@@ -5,10 +5,18 @@
     <LangVersion>8.0</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.0.1</Version>
+    <Version>0.1.0-alpha</Version>
     <Authors>Kornei Dontsov</Authors>
     <Company>Korneev Soft</Company>
+    <Product>Arcanum.DataContracts</Product>
+    <Copyright>Copyright © Kornei Dontsov 2019</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Kornei Dontsov</Copyright>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE.md" Pack="true" PackagePath="LICENSE.md" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Collections.Immutable" Version="1.5.0" />
