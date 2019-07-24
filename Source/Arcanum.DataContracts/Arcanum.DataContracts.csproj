@@ -5,13 +5,15 @@
     <LangVersion>8.0</LangVersion>
     <NullableContextOptions>enable</NullableContextOptions>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>0.1.0-alpha</Version>
+    <Version>0.1.0-rc</Version>
     <Authors>Kornei Dontsov</Authors>
     <Company>Korneev Soft</Company>
     <Product>Arcanum.DataContracts</Product>
     <Copyright>Copyright © Kornei Dontsov 2019</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Kornei Dontsov</Copyright>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
