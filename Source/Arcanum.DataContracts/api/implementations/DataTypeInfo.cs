@@ -32,7 +32,7 @@ namespace Arcanum.DataContracts
 				&& caseTypes != null)
 			{
 				asDiscriminatedUnionInfo = new DiscriminatedUnionInfo(
-					typeInfo: this,
+					dataTypeInfo: this,
 					caseInfoListConstructor: discriminatedUnionInfo =>
 					{
 						return caseTypes
@@ -90,7 +90,7 @@ namespace Arcanum.DataContracts
 					)
 				)
 				{
-					return caseInfo.typeInfo;
+					return caseInfo.dataTypeInfo;
 				}
 			}
 
