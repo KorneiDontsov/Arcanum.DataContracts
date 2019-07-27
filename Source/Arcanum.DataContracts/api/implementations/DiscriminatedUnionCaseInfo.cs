@@ -8,25 +8,25 @@ namespace Arcanum.DataContracts
 {
 	public sealed class DiscriminatedUnionCaseInfo
 	{
-		public DataTypeInfo typeInfo { get; }
+		public DataTypeInfo dataTypeInfo { get; }
 
 		public DiscriminatedUnionInfo declaringUnionInfo { get; }
 
 		public String name { get; }
 
-		public Type dataType => typeInfo.dataType;
+		public Type dataType => dataTypeInfo.dataType;
 
-		internal DiscriminatedUnionCaseInfo (DataTypeInfo typeInfo, DiscriminatedUnionInfo declaringUnionInfo)
+		internal DiscriminatedUnionCaseInfo (DataTypeInfo dataTypeInfo, DiscriminatedUnionInfo declaringUnionInfo)
 		{
-			this.typeInfo = typeInfo;
+			this.dataTypeInfo = dataTypeInfo;
 			this.declaringUnionInfo = declaringUnionInfo;
 
-			name = typeInfo.dataType
+			name = dataTypeInfo.dataType
 			.GetCustomAttributes()
 			.OfType<IDataCaseAttribute>()
 			.FirstOrDefault()
 			?.name
-			?? typeInfo.dataType.Name;
+			?? dataTypeInfo.dataType.Name;
 		}
 	}
 }

@@ -7,7 +7,7 @@ namespace Arcanum.DataContracts
 {
 	public sealed class DiscriminatedUnionInfo
 	{
-		public DataTypeInfo typeInfo { get; }
+		public DataTypeInfo dataTypeInfo { get; }
 
 		public IImmutableList<DiscriminatedUnionCaseInfo> caseInfos { get; }
 
@@ -15,14 +15,14 @@ namespace Arcanum.DataContracts
 
 		public IImmutableDictionary<String, DiscriminatedUnionCaseInfo> caseInfosByNames { get; }
 
-		public Type dataType => typeInfo.dataType;
+		public Type dataType => dataTypeInfo.dataType;
 
 		internal DiscriminatedUnionInfo (
-			DataTypeInfo typeInfo,
+			DataTypeInfo dataTypeInfo,
 			Func<DiscriminatedUnionInfo, IImmutableList<DiscriminatedUnionCaseInfo>> caseInfoListConstructor
 		)
 		{
-			this.typeInfo = typeInfo;
+			this.dataTypeInfo = dataTypeInfo;
 			caseInfos = caseInfoListConstructor(this);
 			caseInfosByTypes = caseInfos.ToImmutableDictionary(i => i.dataType);
 			caseInfosByNames = caseInfos.ToImmutableDictionary(i => i.name);

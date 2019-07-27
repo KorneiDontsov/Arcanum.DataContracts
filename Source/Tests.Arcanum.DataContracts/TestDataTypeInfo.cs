@@ -108,17 +108,20 @@ namespace Tests.Arcanum.DataContracts
 		#region OfDiscriminatedUnionData
 		private abstract class DiscriminatedUnionDataExample
 		{
+			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 			[DataCase("Case1Name")]
 			public sealed class Case1 : DiscriminatedUnionDataExample
 			{
 				public Byte[]? salt { get; set; }
 			}
 
+			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 			public abstract class Case2Base : DiscriminatedUnionDataExample
 			{
 				public SByte[]? extraSalt { get; set; }
 			}
 
+			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
 			public sealed class Case2 : Case2Base
 			{
 				public String? saltText { get; set; }
@@ -152,9 +155,9 @@ namespace Tests.Arcanum.DataContracts
 				}
 
 				[Fact]
-				public void HasDiscriminatedUnionInfoThatHasTypeInfo ()
+				public void HasDiscriminatedUnionInfoThatHasDataTypeInfo ()
 				{
-					_ = dataTypeInfo.asDiscriminatedUnionInfo!.typeInfo.Should().BeSameAs(dataTypeInfo);
+					_ = dataTypeInfo.asDiscriminatedUnionInfo!.dataTypeInfo.Should().BeSameAs(dataTypeInfo);
 				}
 
 				[Fact]
@@ -182,10 +185,10 @@ namespace Tests.Arcanum.DataContracts
 						);
 
 						_ = discriminatedUnionInfo.caseInfos.Should()
-						.OnlyContain(caseInfo => caseInfo.typeInfo.dataType == caseInfo.dataType)
-						.And.OnlyContain(caseInfo => caseInfo.typeInfo.asDiscriminatedUnionInfo == null)
+						.OnlyContain(caseInfo => caseInfo.dataTypeInfo.dataType == caseInfo.dataType)
+						.And.OnlyContain(caseInfo => caseInfo.dataTypeInfo.asDiscriminatedUnionInfo == null)
 						.And.OnlyContain(
-							caseInfo => ReferenceEquals(caseInfo.typeInfo.asDiscriminatedUnionCaseInfo, caseInfo)
+							caseInfo => ReferenceEquals(caseInfo.dataTypeInfo.asDiscriminatedUnionCaseInfo, caseInfo)
 						);
 
 						_ = discriminatedUnionInfo.caseInfosByTypes.Should()
@@ -194,7 +197,9 @@ namespace Tests.Arcanum.DataContracts
 						_ = discriminatedUnionInfo.caseInfosByTypes.Values.Should()
 						.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
 
-						_ = discriminatedUnionInfo.caseInfosByNames.Should().OnlyContain(i => i.Key == i.Value.name);
+						_ = discriminatedUnionInfo.caseInfosByNames.Should()
+						.OnlyContain(i => i.Key == i.Value.name);
+
 						_ = discriminatedUnionInfo.caseInfosByNames.Values.Should()
 						.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
 					}
@@ -242,7 +247,7 @@ namespace Tests.Arcanum.DataContracts
 				[Fact]
 				public void HasDiscriminatedUnionCaseInfoThatHasDataTypeInfo ()
 				{
-					_ = dataTypeInfo.asDiscriminatedUnionCaseInfo!.typeInfo.Should().BeSameAs(dataTypeInfo);
+					_ = dataTypeInfo.asDiscriminatedUnionCaseInfo!.dataTypeInfo.Should().BeSameAs(dataTypeInfo);
 				}
 
 				[Fact]
