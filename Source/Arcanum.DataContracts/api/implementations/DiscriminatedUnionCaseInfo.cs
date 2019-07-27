@@ -16,6 +16,10 @@ namespace Arcanum.DataContracts
 
 		public Type dataType => dataTypeInfo.dataType;
 
+		public DiscriminatedUnionInfo? asDiscriminatedUnionInfo => dataTypeInfo.asDiscriminatedUnionInfo;
+
+		public DiscriminatedUnionCaseInfo? maybeDeclaringCaseInfo => declaringUnionInfo.asDiscriminatedUnionCaseInfo;
+
 		internal DiscriminatedUnionCaseInfo (DataTypeInfo dataTypeInfo, DiscriminatedUnionInfo declaringUnionInfo)
 		{
 			this.dataTypeInfo = dataTypeInfo;

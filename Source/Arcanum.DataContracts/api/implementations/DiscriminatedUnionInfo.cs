@@ -17,6 +17,8 @@ namespace Arcanum.DataContracts
 
 		public Type dataType => dataTypeInfo.dataType;
 
+		public DiscriminatedUnionCaseInfo? asDiscriminatedUnionCaseInfo => dataTypeInfo.asDiscriminatedUnionCaseInfo;
+
 		internal DiscriminatedUnionInfo (
 			DataTypeInfo dataTypeInfo,
 			Func<DiscriminatedUnionInfo, IImmutableList<DiscriminatedUnionCaseInfo>> caseInfoListConstructor
