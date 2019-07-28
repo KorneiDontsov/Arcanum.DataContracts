@@ -4,7 +4,7 @@ using System;
 
 namespace Arcanum.DataContracts
 {
-	public abstract class DataCaseName : IEquatable<DataCaseName>
+	public abstract class DataCaseName : IEquatable<DataCaseName>, IEquatable<String>
 	{
 		public sealed class Valid : DataCaseName
 		{
@@ -60,6 +60,8 @@ namespace Arcanum.DataContracts
 			}
 		}
 
+		public static implicit operator String (DataCaseName dataCaseName) => dataCaseName.nameString;
+
 		/// <inheritdoc />
 		public override String ToString () => nameString;
 
@@ -74,7 +76,18 @@ namespace Arcanum.DataContracts
 		public static Boolean operator != (DataCaseName? first, DataCaseName? second) => !(first == second);
 
 		/// <inheritdoc />
-		public override Boolean Equals (Object obj) => obj is DataCaseName other && Equals(other);
+		public Boolean Equals (String? other) => nameString == other;
+
+		/// <inheritdoc />
+		public override Boolean Equals (Object obj)
+		{
+			return obj switch
+			{
+			DataCaseName other => Equals(other),
+			String other => Equals(other),
+			_ => false
+			};
+		}
 
 		/// <inheritdoc />
 		public override Int32 GetHashCode () => nameString?.GetHashCode() ?? 0;
