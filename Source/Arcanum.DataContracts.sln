@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts", "Arcanum.DataContracts\Arcanum.DataContracts.csproj", "{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Arcanum.DataContracts", "Tests.Arcanum.DataContracts\Tests.Arcanum.DataContracts.csproj", "{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4A037B42-1267-4D96-BCCC-0785385BD855}
+	EndGlobalSection
+EndGlobal
