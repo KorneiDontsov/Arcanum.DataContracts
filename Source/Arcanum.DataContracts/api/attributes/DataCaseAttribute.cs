@@ -6,13 +6,15 @@ namespace Arcanum.DataContracts
 {
 	public interface IDataCaseAttribute
 	{
-		String name { get; }
+		DataCaseName name { get; }
 	}
 
 	public sealed class DataCaseAttribute : Attribute, IDataCaseAttribute
 	{
-		public String name { get; }
+		public DataCaseName name { get; }
 
-		public DataCaseAttribute (String name) => this.name = name;
+		/// <inheritdoc />
+		/// <param name="name">Must contain only latin letters, digits and underscores.</param>
+		public DataCaseAttribute (String name) => this.name = DataCaseName.Construct(name);
 	}
 }
