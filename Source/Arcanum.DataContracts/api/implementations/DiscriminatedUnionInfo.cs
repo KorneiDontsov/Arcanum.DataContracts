@@ -23,6 +23,10 @@ namespace Arcanum.DataContracts
 
 		public DiscriminatedUnionCaseInfo? asDiscriminatedUnionCaseInfo => dataTypeInfo.asDiscriminatedUnionCaseInfo;
 
+		public Boolean isDiscriminatedUnionCaseInfo => asDiscriminatedUnionCaseInfo != null;
+
+		public DiscriminatedUnionInfo rootUnionInfo => asDiscriminatedUnionCaseInfo?.rootUnionInfo ?? this;
+
 		public Boolean hasErrors => invalidCaseErrorInfos.Count > 0 || caseInfos.Count is 0;
 
 		internal DiscriminatedUnionInfo (

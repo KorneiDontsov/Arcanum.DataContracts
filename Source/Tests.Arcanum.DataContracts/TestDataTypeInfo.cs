@@ -197,6 +197,7 @@ namespace Tests.Arcanum.DataContracts
 						_ = discriminatedUnionInfo.caseInfos.Should()
 						.OnlyContain(caseInfo => caseInfo.dataTypeInfo.dataType == caseInfo.dataType)
 						.And.OnlyContain(caseInfo => caseInfo.dataTypeInfo.asDiscriminatedUnionInfo == null)
+						.And.OnlyContain(caseInfo => caseInfo.dataTypeInfo.isDiscriminatedUnionInfo == false)
 						.And.OnlyContain(
 							caseInfo => ReferenceEquals(caseInfo.dataTypeInfo.asDiscriminatedUnionCaseInfo, caseInfo)
 						);

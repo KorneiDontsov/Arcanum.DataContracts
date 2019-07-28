@@ -18,6 +18,28 @@ namespace Arcanum.DataContracts
 
 		public DiscriminatedUnionInfo? asDiscriminatedUnionInfo => dataTypeInfo.asDiscriminatedUnionInfo;
 
+		public Boolean isDiscriminatedUnionInfo => asDiscriminatedUnionInfo != null;
+
+		private DiscriminatedUnionInfo? _lazyRootUnionInfo { get; set; }
+
+		public DiscriminatedUnionInfo rootUnionInfo
+		{
+			get
+			{
+				if (_lazyRootUnionInfo is null)
+				{
+					DiscriminatedUnionInfo iUnionInfo;
+					for (iUnionInfo = declaringUnionInfo;
+						iUnionInfo.asDiscriminatedUnionCaseInfo != null;
+						iUnionInfo = iUnionInfo.asDiscriminatedUnionCaseInfo.declaringUnionInfo) { }
+
+					_lazyRootUnionInfo = iUnionInfo;
+				}
+
+				return _lazyRootUnionInfo;
+			}
+		}
+
 		public DiscriminatedUnionCaseInfo? maybeDeclaringCaseInfo => declaringUnionInfo.asDiscriminatedUnionCaseInfo;
 
 		internal DiscriminatedUnionCaseInfo (DataTypeInfo dataTypeInfo, DiscriminatedUnionInfo declaringUnionInfo)

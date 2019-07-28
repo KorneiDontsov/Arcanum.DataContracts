@@ -14,6 +14,10 @@ namespace Arcanum.DataContracts
 
 		public DiscriminatedUnionCaseInfo? asDiscriminatedUnionCaseInfo { get; }
 
+		public Boolean isDiscriminatedUnionInfo => asDiscriminatedUnionInfo != null;
+
+		public Boolean isDiscriminatedUnionCaseInfo => asDiscriminatedUnionCaseInfo != null;
+
 		private DataTypeInfo (
 			Type dataType,
 			DiscriminatedUnionInfo? declaringUnionInfo = null
@@ -37,7 +41,7 @@ namespace Arcanum.DataContracts
 						return
 						from caseType in caseTypes
 						let dataTypeInfo = new DataTypeInfo(caseType, declaringUnionInfo: discriminatedUnionInfo)
-						where caseType.IsAbstract is false || dataTypeInfo.asDiscriminatedUnionInfo != null
+						where caseType.IsAbstract is false || dataTypeInfo.isDiscriminatedUnionInfo
 						select dataTypeInfo.asDiscriminatedUnionCaseInfo!;
 					}
 				);
