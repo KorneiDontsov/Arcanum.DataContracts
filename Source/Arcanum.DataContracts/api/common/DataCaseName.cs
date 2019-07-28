@@ -35,29 +35,28 @@ namespace Arcanum.DataContracts
 		/// </summary>
 		public static DataCaseName Construct (String nameString)
 		{
-			return tryFindInvalidCharPosition(nameString, out var invalidCharPosition)
+			return TryFindInvalidCharPosition(nameString, out var invalidCharPosition)
 			? (DataCaseName)new Invalid(nameString, invalidCharPosition)
 			: new Valid(nameString);
+		}
 
-
-			static Boolean tryFindInvalidCharPosition (String @string, out UInt32 invalidCharPosition)
+		public static Boolean TryFindInvalidCharPosition (String @string, out UInt32 invalidCharPosition)
+		{
+			for (var i = 0; i < @string.Length; i++)
 			{
-				for (var i = 0; i < @string.Length; i++)
+				var c = @string[i];
+
+				var charIsValid = c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c == '_' || c >= 'a' && c <= 'z';
+
+				if (!charIsValid)
 				{
-					var c = @string[i];
-
-					var charIsValid = c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c == '_' || c >= 'a' && c <= 'z';
-
-					if (!charIsValid)
-					{
-						invalidCharPosition = (UInt32)i;
-						return true;
-					}
+					invalidCharPosition = (UInt32)i;
+					return true;
 				}
-
-				invalidCharPosition = default;
-				return false;
 			}
+
+			invalidCharPosition = default;
+			return false;
 		}
 
 		public static implicit operator String (DataCaseName dataCaseName) => dataCaseName.nameString;
