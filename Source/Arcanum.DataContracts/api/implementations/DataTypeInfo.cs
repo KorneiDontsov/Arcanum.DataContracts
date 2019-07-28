@@ -59,7 +59,7 @@ namespace Arcanum.DataContracts
 				var nestedTypes = dataType.GetNestedTypes();
 				foreach (var nestedType in nestedTypes)
 				{
-					if (nestedType.IsAbstract is false && nestedType.IsSubclassOf(dataType))
+					if (nestedType.IsSubclassOf(dataType))
 					{
 						list ??= new List<Type>(capacity: 4);
 						list.Add(nestedType);
