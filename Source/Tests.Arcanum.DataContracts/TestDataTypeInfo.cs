@@ -148,6 +148,16 @@ namespace Tests.Arcanum.DataContracts
 				}
 
 				[Fact]
+				public void HasDiscriminatedUnionInfoThatDoesntHaveErrors ()
+				{
+					using (new AssertionScope())
+					{
+						_ = dataTypeInfo.asDiscriminatedUnionInfo!.hasErrors.Should().BeFalse();
+						_ = dataTypeInfo.asDiscriminatedUnionInfo!.invalidCaseErrorInfos.Count.Should().Be(0);
+					}
+				}
+
+				[Fact]
 				public void HasDiscriminatedUnionInfoThatHasDataType ()
 				{
 					_ = dataTypeInfo.asDiscriminatedUnionInfo!.dataType.Should()
@@ -169,7 +179,7 @@ namespace Tests.Arcanum.DataContracts
 					using (new AssertionScope())
 					{
 						_ = discriminatedUnionInfo.caseInfos
-						.Select(i => (type: i.dataType, i.name, i.declaringUnionInfo))
+						.Select(i => (type: i.dataType, i.name.nameString, i.declaringUnionInfo))
 						.Should()
 						.BeEquivalentTo(
 							(
@@ -198,7 +208,7 @@ namespace Tests.Arcanum.DataContracts
 						.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
 
 						_ = discriminatedUnionInfo.caseInfosByNames.Should()
-						.OnlyContain(i => i.Key == i.Value.name);
+						.OnlyContain(i => i.Key == i.Value.name.nameString);
 
 						_ = discriminatedUnionInfo.caseInfosByNames.Values.Should()
 						.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
@@ -260,7 +270,7 @@ namespace Tests.Arcanum.DataContracts
 				[Fact]
 				public void HasDiscriminatedUnionCaseInfoThatHasName ()
 				{
-					_ = dataTypeInfo.asDiscriminatedUnionCaseInfo!.name.Should().Be("Case1Name");
+					_ = dataTypeInfo.asDiscriminatedUnionCaseInfo!.name.nameString.Should().Be("Case1Name");
 				}
 
 				[Fact]

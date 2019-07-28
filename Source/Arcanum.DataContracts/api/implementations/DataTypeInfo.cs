@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 namespace Arcanum.DataContracts
@@ -35,17 +34,16 @@ namespace Arcanum.DataContracts
 					dataTypeInfo: this,
 					caseInfoListConstructor: discriminatedUnionInfo =>
 					{
-						return caseTypes
-						.Select(
-							caseType =>
-							{
-								return new DataTypeInfo(caseType, declaringUnionInfo: discriminatedUnionInfo)
-								.asDiscriminatedUnionCaseInfo!;
-							}
-						)
-						.ToImmutableList();
+						return
+						from caseType in caseTypes
+						let dataTypeInfo = new DataTypeInfo(caseType, declaringUnionInfo: discriminatedUnionInfo)
+						where caseType.IsAbstract is false || dataTypeInfo.asDiscriminatedUnionInfo != null
+						select dataTypeInfo.asDiscriminatedUnionCaseInfo!;
 					}
 				);
+
+				// if all cases is abstract and not discriminated unions.
+				if (asDiscriminatedUnionInfo.caseInfos.Count is 0) asDiscriminatedUnionInfo = null;
 			}
 			else
 			{

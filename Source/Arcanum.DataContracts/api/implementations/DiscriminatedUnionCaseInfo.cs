@@ -12,7 +12,7 @@ namespace Arcanum.DataContracts
 
 		public DiscriminatedUnionInfo declaringUnionInfo { get; }
 
-		public String name { get; }
+		public DataCaseName name { get; }
 
 		public Type dataType => dataTypeInfo.dataType;
 
@@ -30,7 +30,7 @@ namespace Arcanum.DataContracts
 			.OfType<IDataCaseAttribute>()
 			.FirstOrDefault()
 			?.name
-			?? dataTypeInfo.dataType.Name;
+			?? DataCaseName.Construct(nameString: dataTypeInfo.dataType.Name);
 		}
 
 		/// <inheritdoc />
