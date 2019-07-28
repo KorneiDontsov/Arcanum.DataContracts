@@ -29,5 +29,8 @@ namespace Arcanum.DataContracts
 			caseInfosByTypes = caseInfos.ToImmutableDictionary(i => i.dataType);
 			caseInfosByNames = caseInfos.ToImmutableDictionary(i => i.name);
 		}
+
+		/// <inheritdoc />
+		public override String ToString () => dataType.ToString();
 	}
 }

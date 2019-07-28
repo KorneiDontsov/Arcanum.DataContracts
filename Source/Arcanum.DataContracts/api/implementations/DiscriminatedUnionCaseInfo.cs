@@ -32,5 +32,8 @@ namespace Arcanum.DataContracts
 			?.name
 			?? dataTypeInfo.dataType.Name;
 		}
+
+		/// <inheritdoc />
+		public override String ToString () => dataType.ToString();
 	}
 }

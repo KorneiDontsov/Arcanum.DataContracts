@@ -98,5 +98,8 @@ namespace Arcanum.DataContracts
 		}
 
 		public static DataTypeInfo Construct (Type dataType) => construct(dataType, maybeStorage: null);
+
+		/// <inheritdoc />
+		public override String ToString () => dataType.ToString();
 	}
 }
