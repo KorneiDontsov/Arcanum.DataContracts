@@ -9,9 +9,8 @@ namespace Arcanum.DataContracts {
 		UnionCaseName (String nameString) => this.nameString = nameString;
 
 		/// <summary>
-		///     Returns <see cref = "Valid" /> if <paramref name = "nameString" /> contains only latin letters, digits and
-		///     underscores;
-		///     otherwise, returns <see cref = "Invalid" />.
+		///     Returns <see cref = "Valid" /> if <paramref name = "nameString" /> contains only latin letters, digits
+		///     and underscores; otherwise, returns <see cref = "Invalid" />.
 		/// </summary>
 		public static UnionCaseName Create (String nameString) =>
 			UnionCaseUtils.TryFindInvalidCharPosition(nameString)
