@@ -3,54 +3,36 @@
 namespace Arcanum.DataContracts {
 	using System;
 
-	public abstract class DataCaseName: IEquatable<DataCaseName?>, IEquatable<String?> {
+	public abstract class UnionCaseName: IEquatable<UnionCaseName?>, IEquatable<String?> {
 		public String nameString { get; }
 
-		DataCaseName (String nameString) => this.nameString = nameString;
+		UnionCaseName (String nameString) => this.nameString = nameString;
 
 		/// <summary>
 		///     Returns <see cref = "Valid" /> if <paramref name = "nameString" /> contains only latin letters, digits and
 		///     underscores;
 		///     otherwise, returns <see cref = "Invalid" />.
 		/// </summary>
-		public static DataCaseName Construct (String nameString) {
-			static Boolean HasInvalidCharPosition (String @string, out UInt32 invalidCharPosition) {
-				for (var i = 0; i < @string.Length; i += 1) {
-					var @char = @string[i];
-					var charIsValid =
-						@char == '_'
-						|| @char >= 'A' && @char <= 'Z'
-						|| @char >= 'a' && @char <= 'z'
-						|| @char >= '0' && @char <= '9';
+		public static UnionCaseName Create (String nameString) =>
+			UnionCaseUtils.TryFindInvalidCharPosition(nameString)
+				switch {
+					{ } invalidCharPosition => (UnionCaseName) new Invalid(nameString, invalidCharPosition),
+					null => new Valid(nameString)
+				};
 
-					if (! charIsValid) {
-						invalidCharPosition = (UInt32) i;
-						return true;
-					}
-				}
-
-				invalidCharPosition = default;
-				return false;
-			}
-
-			return HasInvalidCharPosition(nameString, out var invalidCharPosition)
-				? (DataCaseName) new Invalid(nameString, invalidCharPosition)
-				: new Valid(nameString);
-		}
-
-		public static implicit operator String (DataCaseName dataCaseName) => dataCaseName.nameString;
+		public static implicit operator String (UnionCaseName unionCaseName) => unionCaseName.nameString;
 
 		/// <inheritdoc />
 		public override String ToString () => nameString;
 
 		/// <inheritdoc />
-		public Boolean Equals (DataCaseName? other) =>
+		public Boolean Equals (UnionCaseName? other) =>
 			nameString == other?.nameString;
 
-		public static Boolean operator == (DataCaseName? first, DataCaseName? second) =>
+		public static Boolean operator == (UnionCaseName? first, UnionCaseName? second) =>
 			first is null && second is null || first is { } && first.Equals(second);
 
-		public static Boolean operator != (DataCaseName? first, DataCaseName? second) =>
+		public static Boolean operator != (UnionCaseName? first, UnionCaseName? second) =>
 			! (first == second);
 
 		/// <inheritdoc />
@@ -60,7 +42,7 @@ namespace Arcanum.DataContracts {
 		/// <inheritdoc />
 		public override Boolean Equals (Object? obj) =>
 			obj switch {
-				DataCaseName other => Equals(other),
+				UnionCaseName other => Equals(other),
 				String other => Equals(other),
 				_ => false
 			};
@@ -69,12 +51,12 @@ namespace Arcanum.DataContracts {
 		public override Int32 GetHashCode () => nameString?.GetHashCode() ?? 0;
 
 		#region cases
-		sealed class Valid: DataCaseName {
+		sealed class Valid: UnionCaseName {
 			/// <param name = "nameString"> Must contain only latin letters, digits and underscores. </param>
 			internal Valid (String nameString): base(nameString) { }
 		}
 
-		public sealed class Invalid: DataCaseName {
+		public sealed class Invalid: UnionCaseName {
 			public UInt32 invalidCharPosition { get; }
 
 			internal Invalid (String nameString, UInt32 invalidCharPosition): base(nameString) =>

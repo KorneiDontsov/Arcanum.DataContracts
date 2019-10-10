@@ -5,19 +5,19 @@ namespace Arcanum.DataContracts {
 
 	public interface IUnionCaseInfo {
 		IDataTypeInfo dataTypeInfo { get; }
-		
+
 		IUnionInfo declaringUnionInfo { get; }
-		
-		DataCaseName name { get; }
-		
+
+		UnionCaseName name { get; }
+
 		Type dataType { get; }
-		
+
 		IUnionInfo? asDiscriminatedUnionInfo { get; }
-		
+
 		Boolean isDiscriminatedUnionInfo { get; }
-		
+
 		IUnionInfo rootUnionInfo { get; }
-		
+
 		IUnionCaseInfo? maybeDeclaringCaseInfo { get; }
 	}
 }

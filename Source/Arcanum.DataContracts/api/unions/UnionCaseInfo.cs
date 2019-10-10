@@ -3,12 +3,12 @@
 namespace Arcanum.DataContracts {
 	using System;
 
-	sealed class UnionCaseInfo : IUnionCaseInfo {
+	sealed class UnionCaseInfo: IUnionCaseInfo {
 		public IDataTypeInfo dataTypeInfo { get; }
-		
+
 		public IUnionInfo declaringUnionInfo { get; }
 
-		public DataCaseName name { get; }
+		public UnionCaseName name { get; }
 
 		public Type dataType => dataTypeInfo.dataType;
 
@@ -39,8 +39,8 @@ namespace Arcanum.DataContracts {
 			this.declaringUnionInfo = declaringUnionInfo;
 
 			name =
-				dataTypeInfo.dataType.TryFindAttributeByAbstraction<IDataCaseAttribute>()?.name
-				?? DataCaseName.Construct(nameString: dataTypeInfo.dataType.Name);
+				dataTypeInfo.dataType.TryFindAttributeByAbstraction<IUnionCaseAttribute>()?.name
+				?? UnionCaseName.Create(nameString: dataTypeInfo.dataType.Name);
 		}
 	}
 }

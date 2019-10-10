@@ -13,11 +13,11 @@ namespace Arcanum.DataContracts {
 
 		#region cases
 		public sealed class HasInvalidName: UnionCaseError {
-			public DataCaseName.Invalid invalidCaseName { get; }
+			public UnionCaseName.Invalid invalidCaseName { get; }
 
 			/// <inheritdoc />
 			public HasInvalidName (IUnionCaseInfo caseInfo): base(caseInfo) =>
-				invalidCaseName = caseInfo.name as DataCaseName.Invalid
+				invalidCaseName = caseInfo.name as UnionCaseName.Invalid
 					?? throw new Exception(
 						$"'caseInfo' must be with invalid name. Accepted {caseInfo} with valid name '{caseInfo.name}'.");
 
