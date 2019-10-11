@@ -3,15 +3,15 @@
 namespace Arcanum.DataContracts {
 	using System;
 
-	public interface IDataCaseAttribute {
-		DataCaseName name { get; }
+	public interface IUnionCaseAttribute {
+		UnionCaseName name { get; }
 	}
 
-	public sealed class DataCaseAttribute: Attribute, IDataCaseAttribute {
-		public DataCaseName name { get; }
+	public sealed class UnionCaseAttribute: Attribute, IUnionCaseAttribute {
+		public UnionCaseName name { get; }
 
 		/// <inheritdoc />
 		/// <param name = "name"> Must contain only latin letters, digits and underscores. </param>
-		public DataCaseAttribute (String name) => this.name = DataCaseName.Construct(name);
+		public UnionCaseAttribute (String name) => this.name = UnionCaseName.Create(name);
 	}
 }

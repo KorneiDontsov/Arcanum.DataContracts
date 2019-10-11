@@ -11,25 +11,19 @@ namespace Tests.Arcanum.DataContracts {
 
 			protected IDataTypeInfoFactory storage { get; }
 
-			protected Base (IDataTypeInfoFactory storage) {
-				this.storage = storage;
-			}
+			protected Base (IDataTypeInfoFactory storage) => this.storage = storage;
 
 			[Fact]
 			public void DoesntGiveNullInsteadInfo () {
 				var someDataTypeInfo = storage.Get(typeof(SomeData));
-
-				_ = someDataTypeInfo.Should()
-					.NotBeNull();
+				someDataTypeInfo.Should().NotBeNull();
 			}
 
 			[Fact]
 			public void DoCache () {
 				var someDataTypeInfo = storage.Get(typeof(SomeData));
 				var sameDataTypeInfo = storage.Get(typeof(SomeData));
-
-				_ = someDataTypeInfo.Should()
-					.BeSameAs(sameDataTypeInfo);
+				someDataTypeInfo.Should().BeSameAs(sameDataTypeInfo);
 			}
 		}
 

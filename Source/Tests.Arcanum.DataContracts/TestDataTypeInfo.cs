@@ -54,11 +54,11 @@ namespace Tests.Arcanum.DataContracts {
 					base(typeof(SimpleDataExample), factory) { }
 
 				[Fact]
-				public void DoesntHaveDiscriminatedUnionInfo () =>
+				public void DoesntHaveUnionInfo () =>
 					dataTypeInfo.asUnionInfo.Should().BeNull();
 
 				[Fact]
-				public void DoesntHaveDiscriminatedUnionCaseInfo () =>
+				public void DoesntHaveUnionCaseInfo () =>
 					dataTypeInfo.asUnionCaseInfo.Should().BeNull();
 			}
 		}
@@ -76,16 +76,16 @@ namespace Tests.Arcanum.DataContracts {
 		}
 		#endregion
 
-		#region OfDiscriminatedUnionData
-		abstract class DiscriminatedUnionDataExample {
+		#region OfUnionData
+		abstract class UnionDataExample {
 			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-			[DataCase("Case1Name")]
-			public sealed class Case1: DiscriminatedUnionDataExample {
+			[UnionCase("Case1Name")]
+			public sealed class Case1: UnionDataExample {
 				public Byte[]? salt { get; set; }
 			}
 
 			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-			public abstract class Case2Base: DiscriminatedUnionDataExample {
+			public abstract class Case2Base: UnionDataExample {
 				public SByte[]? extraSalt { get; set; }
 			}
 
@@ -96,20 +96,20 @@ namespace Tests.Arcanum.DataContracts {
 		}
 
 		partial class Base {
-			public abstract class OfDiscriminatedUnionData: OfAnyData {
-				protected OfDiscriminatedUnionData (IDataTypeInfoFactory factory):
-					base(typeof(DiscriminatedUnionDataExample), factory) { }
+			public abstract class OfUnionData: OfAnyData {
+				protected OfUnionData (IDataTypeInfoFactory factory):
+					base(typeof(UnionDataExample), factory) { }
 
 				[Fact]
-				public void DoesntHaveDiscriminatedUnionCaseInfo () =>
+				public void DoesntHaveUnionCaseInfo () =>
 					dataTypeInfo.asUnionCaseInfo.Should().BeNull();
 
 				[Fact]
-				public void HasDiscriminatedUnionInfo () =>
+				public void HasUnionInfo () =>
 					dataTypeInfo.asUnionInfo.Should().NotBeNull();
 
 				[Fact]
-				public void HasDiscriminatedUnionInfoThatDoesntHaveErrors () {
+				public void HasUnionInfoThatDoesntHaveErrors () {
 					using (new AssertionScope()) {
 						dataTypeInfo.asUnionInfo!.hasErrors.Should().BeFalse();
 						dataTypeInfo.asUnionInfo!.invalidCaseErrors.Count.Should().Be(0);
@@ -117,34 +117,34 @@ namespace Tests.Arcanum.DataContracts {
 				}
 
 				[Fact]
-				public void HasDiscriminatedUnionInfoThatHasDataType () =>
-					dataTypeInfo.asUnionInfo!.dataType.Should().Be(typeof(DiscriminatedUnionDataExample));
+				public void HasUnionInfoThatHasDataType () =>
+					dataTypeInfo.asUnionInfo!.dataType.Should().Be(typeof(UnionDataExample));
 
 				[Fact]
-				public void HasDiscriminatedUnionInfoThatHasDataTypeInfo () =>
+				public void HasUnionInfoThatHasDataTypeInfo () =>
 					dataTypeInfo.asUnionInfo!.dataTypeInfo.Should().BeSameAs(dataTypeInfo);
 
 				[Fact]
-				public void HasDiscriminatedUnionInfoThatHasCases () {
-					var discriminatedUnionInfo = dataTypeInfo.asUnionInfo!;
+				public void HasUnionInfoThatHasCases () {
+					var unionInfo = dataTypeInfo.asUnionInfo!;
 
 					using (new AssertionScope()) {
-						discriminatedUnionInfo.caseInfos
+						unionInfo.caseInfos
 							.Select(i => (type: i.dataType, i.name.nameString, i.declaringUnionInfo))
 							.Should()
 							.BeEquivalentTo(
 								(
-									type: typeof(DiscriminatedUnionDataExample.Case1),
+									type: typeof(UnionDataExample.Case1),
 									name: "Case1Name",
-									declaringUnionInfo: discriminatedUnionInfo
+									declaringUnionInfo: unionInfo
 								),
 								(
-									type: typeof(DiscriminatedUnionDataExample.Case2),
+									type: typeof(UnionDataExample.Case2),
 									name: "Case2",
-									declaringUnionInfo: discriminatedUnionInfo
+									declaringUnionInfo: unionInfo
 								));
 
-						discriminatedUnionInfo.caseInfos.Should()
+						unionInfo.caseInfos.Should()
 							.OnlyContain(caseInfo => caseInfo.dataTypeInfo.dataType == caseInfo.dataType)
 							.And.OnlyContain(caseInfo => caseInfo.dataTypeInfo.asUnionInfo == null)
 							.And.OnlyContain(caseInfo => caseInfo.dataTypeInfo.isUnionInfo == false)
@@ -152,88 +152,76 @@ namespace Tests.Arcanum.DataContracts {
 								caseInfo => ReferenceEquals(
 									caseInfo.dataTypeInfo.asUnionCaseInfo, caseInfo));
 
-						_ = discriminatedUnionInfo.caseInfosByTypes.Should()
+						unionInfo.caseInfosByTypes.Should()
 							.OnlyContain(i => i.Key == i.Value.dataType);
 
-						_ = discriminatedUnionInfo.caseInfosByTypes.Values.Should()
-							.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
+						unionInfo.caseInfosByTypes.Values.Should()
+							.BeEquivalentTo(unionInfo.caseInfos);
 
-						_ = discriminatedUnionInfo.caseInfosByNames.Should()
+						unionInfo.caseInfosByNames.Should()
 							.OnlyContain(i => i.Key == i.Value.name.nameString);
 
-						_ = discriminatedUnionInfo.caseInfosByNames.Values.Should()
-							.BeEquivalentTo(discriminatedUnionInfo.caseInfos);
+						unionInfo.caseInfosByNames.Values.Should()
+							.BeEquivalentTo(unionInfo.caseInfos);
 					}
 				}
 			}
 		}
 
 		partial class FromFactory {
-			public sealed class OfDiscriminatedUnionData: Base.OfDiscriminatedUnionData {
-				public OfDiscriminatedUnionData (): base(factory) { }
+			public sealed class OfUnionData: Base.OfUnionData {
+				public OfUnionData (): base(factory) { }
 			}
 		}
 
 		partial class FromStorage {
-			public sealed class OfDiscriminatedUnionData: Base.OfDiscriminatedUnionData {
-				public OfDiscriminatedUnionData (): base(factory) { }
+			public sealed class OfUnionData: Base.OfUnionData {
+				public OfUnionData (): base(factory) { }
 			}
 		}
 		#endregion
 
-		#region OfDiscriminatedUnionDataCase
+		#region OfUnionDataCase
 		partial class Base {
-			public abstract class OfDiscriminatedUnionDataCase: OfAnyData {
-				protected OfDiscriminatedUnionDataCase (IDataTypeInfoFactory factory)
-					: base(typeof(DiscriminatedUnionDataExample.Case1), factory) { }
+			public abstract class OfUnionDataCase: OfAnyData {
+				protected OfUnionDataCase (IDataTypeInfoFactory factory)
+					: base(typeof(UnionDataExample.Case1), factory) { }
 
 				[Fact]
-				public void DoesntHaveDiscriminatedUnionInfo () {
-					_ = dataTypeInfo.asUnionInfo.Should()
-						.BeNull();
-				}
+				public void DoesntHaveUnionInfo () =>
+					dataTypeInfo.asUnionInfo.Should().BeNull();
 
 				[Fact]
-				public void HasDiscriminatedUnionCaseInfo () {
-					_ = dataTypeInfo.asUnionCaseInfo.Should()
-						.NotBeNull();
-				}
+				public void HasUnionCaseInfo () =>
+					dataTypeInfo.asUnionCaseInfo.Should().NotBeNull();
 
 				[Fact]
-				public void HasDiscriminatedUnionCaseInfoThatHasDataTypeInfo () {
-					_ = dataTypeInfo.asUnionCaseInfo!.dataTypeInfo.Should()
-						.BeSameAs(dataTypeInfo);
-				}
+				public void HasUnionCaseInfoThatHasDataTypeInfo () =>
+					dataTypeInfo.asUnionCaseInfo!.dataTypeInfo.Should().BeSameAs(dataTypeInfo);
 
 				[Fact]
-				public void HasDiscriminatedUnionCaseInfoThatHasDataType () {
-					_ = dataTypeInfo.asUnionCaseInfo!.dataType.Should()
-						.Be(typeof(DiscriminatedUnionDataExample.Case1));
-				}
+				public void HasUnionCaseInfoThatHasDataType () =>
+					dataTypeInfo.asUnionCaseInfo!.dataType.Should().Be(typeof(UnionDataExample.Case1));
 
 				[Fact]
-				public void HasDiscriminatedUnionCaseInfoThatHasName () {
-					_ = dataTypeInfo.asUnionCaseInfo!.name.nameString.Should()
-						.Be("Case1Name");
-				}
+				public void HasUnionCaseInfoThatHasName () =>
+					dataTypeInfo.asUnionCaseInfo!.name.nameString.Should().Be("Case1Name");
 
 				[Fact]
-				public void HasDiscriminatedUnionCaseInfoThatHasDeclaringUnionInfo () {
-					_ = dataTypeInfo.asUnionCaseInfo!.declaringUnionInfo.dataType.Should()
-						.Be(typeof(DiscriminatedUnionDataExample));
-				}
+				public void HasUnionCaseInfoThatHasDeclaringUnionInfo () =>
+					dataTypeInfo.asUnionCaseInfo!.declaringUnionInfo.dataType.Should().Be(typeof(UnionDataExample));
 			}
 		}
 
 		partial class FromFactory {
-			public sealed class OfDiscriminatedUnionDataCase: Base.OfDiscriminatedUnionDataCase {
-				public OfDiscriminatedUnionDataCase (): base(factory) { }
+			public sealed class OfUnionDataCase: Base.OfUnionDataCase {
+				public OfUnionDataCase (): base(factory) { }
 			}
 		}
 
 		partial class FromStorage {
-			public sealed class OfDiscriminatedUnionDataCase: Base.OfDiscriminatedUnionDataCase {
-				public OfDiscriminatedUnionDataCase (): base(factory) { }
+			public sealed class OfUnionDataCase: Base.OfUnionDataCase {
+				public OfUnionDataCase (): base(factory) { }
 			}
 		}
 		#endregion
