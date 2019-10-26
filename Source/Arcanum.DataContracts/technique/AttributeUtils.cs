@@ -4,7 +4,7 @@ namespace Arcanum.DataContracts {
 	using System.Reflection;
 
 	static class AttributeUtils {
-		public static TAttrAbst? TryFindAttributeByAbstraction<TAttrAbst> (this MemberInfo type)
+		public static TAttrAbst? MatchCustomAttribute<TAttrAbst> (this MemberInfo type)
 		where TAttrAbst: class {
 			foreach (var attribute in type.GetCustomAttributes())
 				if (attribute is TAttrAbst implOfAbst)

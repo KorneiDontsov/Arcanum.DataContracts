@@ -1,9 +1,8 @@
 ﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
 
-namespace Tests.Arcanum.DataContracts {
+namespace Arcanum.DataContracts.Tests {
 	using FluentAssertions;
 	using FluentAssertions.Execution;
-	using global::Arcanum.DataContracts;
 	using JetBrains.Annotations;
 	using System;
 	using System.Linq;

@@ -5,7 +5,7 @@ namespace Arcanum.DataContracts {
 	using System.Collections.Immutable;
 	using System.Linq;
 
-	sealed class DataTypeInfo: IDataTypeInfo {
+	class DataTypeInfo: IDataTypeInfo {
 		public Type dataType { get; }
 
 		public IUnionInfo? asUnionInfo { get; }
