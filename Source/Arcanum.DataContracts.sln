@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts", "Arcanum.DataContracts\Arcanum.DataContracts.csproj", "{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Arcanum.DataContracts", "Tests.Arcanum.DataContracts\Tests.Arcanum.DataContracts.csproj", "{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts.Tests", "Arcanum.DataContracts.Tests\Arcanum.DataContracts.Tests.csproj", "{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

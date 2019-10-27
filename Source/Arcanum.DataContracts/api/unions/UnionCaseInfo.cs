@@ -3,7 +3,7 @@
 namespace Arcanum.DataContracts {
 	using System;
 
-	sealed class UnionCaseInfo: IUnionCaseInfo {
+	class UnionCaseInfo: IUnionCaseInfo {
 		public IDataTypeInfo dataTypeInfo { get; }
 
 		public IUnionInfo declaringUnionInfo { get; }
@@ -14,7 +14,7 @@ namespace Arcanum.DataContracts {
 
 		public IUnionInfo? asDiscriminatedUnionInfo => dataTypeInfo.asUnionInfo;
 
-		public Boolean isDiscriminatedUnionInfo => asDiscriminatedUnionInfo != null;
+		public Boolean isDiscriminatedUnionInfo => asDiscriminatedUnionInfo is { };
 
 		IUnionInfo? lazyRootUnionInfo;
 
@@ -39,7 +39,7 @@ namespace Arcanum.DataContracts {
 			this.declaringUnionInfo = declaringUnionInfo;
 
 			name =
-				dataTypeInfo.dataType.TryFindAttributeByAbstraction<IUnionCaseAttribute>()?.name
+				dataTypeInfo.dataType.MatchCustomAttribute<IUnionCaseAttribute>()?.name
 				?? UnionCaseName.Create(nameString: dataTypeInfo.dataType.Name);
 		}
 	}

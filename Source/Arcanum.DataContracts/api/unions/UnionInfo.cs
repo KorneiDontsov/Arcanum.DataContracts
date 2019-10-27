@@ -7,7 +7,7 @@ namespace Arcanum.DataContracts {
 	using System.Linq;
 	using System.Text;
 
-	sealed class UnionInfo: IUnionInfo {
+	class UnionInfo: IUnionInfo {
 		public IDataTypeInfo dataTypeInfo { get; }
 
 		public IImmutableList<IUnionCaseInfo> caseInfos { get; }
@@ -34,7 +34,7 @@ namespace Arcanum.DataContracts {
 			this.dataTypeInfo = dataTypeInfo;
 
 			var caseInfosB = ImmutableList.CreateBuilder<IUnionCaseInfo>();
-			var caseInfosOfTypesB = ImmutableDictionary.CreateBuilder<Type, IUnionCaseInfo>();
+			var caseInfosByTypesB = ImmutableDictionary.CreateBuilder<Type, IUnionCaseInfo>();
 			var caseInfosByNamesB = ImmutableDictionary.CreateBuilder<String, IUnionCaseInfo>();
 
 			var invalidCaseErrorInfosB = ImmutableList.CreateBuilder<UnionCaseError>();
@@ -46,12 +46,12 @@ namespace Arcanum.DataContracts {
 					invalidCaseErrorInfosB.Add(new UnionCaseError.HasDuplicateName(caseInfo, sameNameCaseInfo));
 				else {
 					caseInfosB.Add(caseInfo);
-					caseInfosOfTypesB.Add(caseInfo.dataType, caseInfo);
+					caseInfosByTypesB.Add(caseInfo.dataType, caseInfo);
 					caseInfosByNamesB.Add(caseInfo.name.nameString, caseInfo);
 				}
 
 			caseInfos = caseInfosB.ToImmutable();
-			caseInfosByTypes = caseInfosOfTypesB.ToImmutable();
+			caseInfosByTypes = caseInfosByTypesB.ToImmutable();
 			caseInfosByNames = caseInfosByNamesB.ToImmutable();
 			invalidCaseErrors = invalidCaseErrorInfosB.ToImmutable();
 		}
@@ -63,16 +63,17 @@ namespace Arcanum.DataContracts {
 		///     Must not be invoked for union that doesn't have errors.
 		/// </summary>
 		public String GetErrorString () {
-			if (invalidCaseErrors.Count is 0) throw new Exception($"Union {this} doesn't have errors.");
-
-			var errorSb = new StringBuilder(256);
-			errorSb = caseInfos.Count > 0 ? errorSb : errorSb.AppendLine("Union doesn't contain valid cases.");
-			errorSb = invalidCaseErrors.Aggregate(
-				seed: errorSb.AppendLine("There are invalid cases with errors."),
-				func: (sb, invalidCaseErrorInfo) =>
-					sb.Append('\t').AppendLine(invalidCaseErrorInfo.ToString()));
-
-			return errorSb.ToString();
+			if (invalidCaseErrors.Count is 0)
+				throw new Exception($"Union {this} doesn't have errors.");
+			else {
+				var empty = new StringBuilder(256);
+				var er1 = caseInfos.Count > 0 ? empty : empty.AppendLine("Union doesn't contain valid cases.");
+				var er2 = invalidCaseErrors.Aggregate(
+					seed: er1.AppendLine("There are invalid cases with errors."),
+					(sb, invalidCaseErrorInfo) =>
+						sb.Append('\t').AppendLine(invalidCaseErrorInfo.ToString()));
+				return er2.ToString();
+			}
 		}
 	}
 }

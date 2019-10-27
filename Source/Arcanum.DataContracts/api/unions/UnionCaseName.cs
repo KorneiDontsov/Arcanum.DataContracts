@@ -12,12 +12,13 @@ namespace Arcanum.DataContracts {
 		///     Returns <see cref = "Valid" /> if <paramref name = "nameString" /> contains only latin letters, digits
 		///     and underscores; otherwise, returns <see cref = "Invalid" />.
 		/// </summary>
-		public static UnionCaseName Create (String nameString) =>
-			UnionCaseUtils.TryFindInvalidCharPosition(nameString)
-				switch {
-					{ } invalidCharPosition => (UnionCaseName) new Invalid(nameString, invalidCharPosition),
-					null => new Valid(nameString)
-				};
+		public static UnionCaseName Create (String nameString) {
+			var invalidCharPosition = UnionCaseUtils.TryFindInvalidCharPosition(nameString);
+			return
+				invalidCharPosition is null
+					? (UnionCaseName) new Valid(nameString)
+					: new Invalid(nameString, invalidCharPosition.GetValueOrDefault());
+		}
 
 		public static implicit operator String (UnionCaseName unionCaseName) => unionCaseName.nameString;
 
