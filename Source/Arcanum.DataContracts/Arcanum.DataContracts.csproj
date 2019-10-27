@@ -8,15 +8,18 @@
 
     <PropertyGroup>
         <Product>Arcanum.DataContracts</Product>
-        <Version>0.6.0</Version>
+        <Version>0.6.1</Version>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <PropertyGroup>
+        <Title>Arcanum.DataContracts</Title>
+        <Description>
+            Arcanum.DataContracts provides annotations and tools to implement serialization of custom types.
+        </Description>
         <Authors>KorneiDontsov</Authors>
         <Copyright>Copyright © Kornei Dontsov 2019</Copyright>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
         <RepositoryUrl>https://github.com/KorneiDontsov/Arcanum.DataContracts</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
