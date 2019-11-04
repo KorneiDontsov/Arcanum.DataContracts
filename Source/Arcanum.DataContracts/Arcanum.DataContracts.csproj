@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <LangVersion>8.0</LangVersion>
@@ -35,5 +34,4 @@
     <ItemGroup>
         <PackageReference Include="System.Collections.Immutable" Version="1.6.0"/>
     </ItemGroup>
-
 </Project>

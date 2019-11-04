@@ -22,7 +22,7 @@ namespace Arcanum.DataContracts {
 
 		public IUnionCaseInfo? asUnionCaseInfo => dataTypeInfo.asUnionCaseInfo;
 
-		public Boolean isUnionCaseInfo => asUnionCaseInfo != null;
+		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
 
 		public IUnionInfo rootUnionInfo => asUnionCaseInfo?.rootUnionInfo ?? this;
 
