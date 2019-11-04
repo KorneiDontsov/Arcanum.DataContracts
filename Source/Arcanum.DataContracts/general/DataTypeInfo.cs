@@ -10,11 +10,11 @@ namespace Arcanum.DataContracts {
 
 		public IUnionInfo? asUnionInfo { get; }
 
-		public Boolean isUnionInfo => asUnionInfo != null;
+		public Boolean isUnionInfo => asUnionInfo is { };
 
 		public IUnionCaseInfo? asUnionCaseInfo { get; }
 
-		public Boolean isUnionCaseInfo => asUnionCaseInfo != null;
+		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
 
 		DataTypeInfo (Type dataType, UnionInfo? declaringUnionInfo = null) {
 			static IUnionInfo? AsUnionInfo (DataTypeInfo dataTypeInfo) {
