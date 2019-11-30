@@ -8,7 +8,7 @@ namespace Arcanum.DataContracts {
 
 		public IUnionInfo declaringUnionInfo { get; }
 
-		public UnionCaseName name { get; }
+		public String name { get; }
 
 		public Type dataType => dataTypeInfo.dataType;
 
@@ -37,10 +37,9 @@ namespace Arcanum.DataContracts {
 		internal UnionCaseInfo (IDataTypeInfo dataTypeInfo, IUnionInfo declaringUnionInfo) {
 			this.dataTypeInfo = dataTypeInfo;
 			this.declaringUnionInfo = declaringUnionInfo;
-
 			name =
 				dataTypeInfo.dataType.MatchCustomAttribute<IUnionCaseAttribute>()?.name
-				?? UnionCaseName.Create(nameString: dataTypeInfo.dataType.Name);
+				?? dataTypeInfo.dataType.Name;
 		}
 	}
 }

@@ -8,7 +8,7 @@ namespace Arcanum.DataContracts {
 
 		IUnionInfo declaringUnionInfo { get; }
 
-		UnionCaseName name { get; }
+		String name { get; }
 
 		Type dataType { get; }
 

@@ -34,6 +34,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.Collections.Immutable" Version="1.6.0"/>
+        <PackageReference Include="System.Collections.Immutable" Version="1.6.0" />
     </ItemGroup>
 </Project>

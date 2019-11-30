@@ -129,7 +129,7 @@ namespace Arcanum.DataContracts.Tests {
 
 					using (new AssertionScope()) {
 						unionInfo.caseInfos
-							.Select(i => (type: i.dataType, i.name.nameString, i.declaringUnionInfo))
+							.Select(i => (type: i.dataType, i.name, i.declaringUnionInfo))
 							.Should()
 							.BeEquivalentTo(
 								(
@@ -158,7 +158,7 @@ namespace Arcanum.DataContracts.Tests {
 							.BeEquivalentTo(unionInfo.caseInfos);
 
 						unionInfo.caseInfosByNames.Should()
-							.OnlyContain(i => i.Key == i.Value.name.nameString);
+							.OnlyContain(i => i.Key == i.Value.name);
 
 						unionInfo.caseInfosByNames.Values.Should()
 							.BeEquivalentTo(unionInfo.caseInfos);
@@ -204,7 +204,7 @@ namespace Arcanum.DataContracts.Tests {
 
 				[Fact]
 				public void HasUnionCaseInfoThatHasName () =>
-					dataTypeInfo.asUnionCaseInfo!.name.nameString.Should().Be("Case1Name");
+					dataTypeInfo.asUnionCaseInfo!.name.Should().Be("Case1Name");
 
 				[Fact]
 				public void HasUnionCaseInfoThatHasDeclaringUnionInfo () =>

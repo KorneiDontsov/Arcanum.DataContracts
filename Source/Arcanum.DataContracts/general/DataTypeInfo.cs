@@ -54,12 +54,12 @@ namespace Arcanum.DataContracts {
 			static Exception MustBeClassOrStructure (Type dataType) =>
 				new Exception($"'dataType' must be class or structure. Accepted {dataType.AssemblyQualifiedName}.");
 
-			static IUnionCaseInfo? TryFindCaseInfo (Type dataType, IDataTypeInfoFactory factory) =>
+			static IUnionCaseInfo? MaybeCaseInfo (Type dataType, IDataTypeInfoFactory factory) =>
 				factory.Get(dataType.DeclaringType).asUnionInfo?.caseInfosByTypes.GetValueOrDefault(dataType);
 
 			return
 				! dataType.IsClass && ! dataType.IsValueType ? throw MustBeClassOrStructure(dataType)
-				: dataType.IsNested && TryFindCaseInfo(dataType, factory) is { } caseInfo ? caseInfo.dataTypeInfo
+				: dataType.IsNested && MaybeCaseInfo(dataType, factory) is { } caseInfo ? caseInfo.dataTypeInfo
 				: new DataTypeInfo(dataType);
 		}
 

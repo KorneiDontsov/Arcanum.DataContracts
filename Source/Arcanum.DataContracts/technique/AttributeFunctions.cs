@@ -3,12 +3,12 @@
 namespace Arcanum.DataContracts {
 	using System.Reflection;
 
-	static class AttributeUtils {
-		public static TAttrAbst? MatchCustomAttribute<TAttrAbst> (this MemberInfo type)
-		where TAttrAbst: class {
+	static class AttributeFunctions {
+		public static TAttr? MatchCustomAttribute<TAttr> (this MemberInfo type)
+		where TAttr: class {
 			foreach (var attribute in type.GetCustomAttributes())
-				if (attribute is TAttrAbst implOfAbst)
-					return implOfAbst;
+				if (attribute is TAttr matched)
+					return matched;
 
 			return null;
 		}

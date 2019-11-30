@@ -28,9 +28,9 @@ namespace Arcanum.DataContracts {
 
 		public Boolean hasErrors => invalidCaseErrors.Count > 0 || caseInfos.Count is 0;
 
-		internal UnionInfo (
-		IDataTypeInfo dataTypeInfo,
-		Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
+		internal UnionInfo
+		(IDataTypeInfo dataTypeInfo,
+		 Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
 			this.dataTypeInfo = dataTypeInfo;
 
 			var caseInfosB = ImmutableList.CreateBuilder<IUnionCaseInfo>();
@@ -40,14 +40,12 @@ namespace Arcanum.DataContracts {
 			var invalidCaseErrorInfosB = ImmutableList.CreateBuilder<UnionCaseError>();
 
 			foreach (var caseInfo in enumerateCaseInfos(this))
-				if (caseInfo.name is UnionCaseName.Invalid)
-					invalidCaseErrorInfosB.Add(new UnionCaseError.HasInvalidName(caseInfo));
-				else if (caseInfosByNamesB.TryGetValue(caseInfo.name.nameString, out var sameNameCaseInfo))
+				if (caseInfosByNamesB.GetValueOrDefault(caseInfo.name) is { } sameNameCaseInfo)
 					invalidCaseErrorInfosB.Add(new UnionCaseError.HasDuplicateName(caseInfo, sameNameCaseInfo));
 				else {
 					caseInfosB.Add(caseInfo);
 					caseInfosByTypesB.Add(caseInfo.dataType, caseInfo);
-					caseInfosByNamesB.Add(caseInfo.name.nameString, caseInfo);
+					caseInfosByNamesB.Add(caseInfo.name, caseInfo);
 				}
 
 			caseInfos = caseInfosB.ToImmutable();
@@ -70,7 +68,8 @@ namespace Arcanum.DataContracts {
 				var er1 = caseInfos.Count > 0 ? empty : empty.AppendLine("Union doesn't contain valid cases.");
 				var er2 = invalidCaseErrors.Aggregate(
 					seed: er1.AppendLine("There are invalid cases with errors."),
-					(sb, invalidCaseErrorInfo) =>
+					(sb,
+					 invalidCaseErrorInfo) =>
 						sb.Append('\t').AppendLine(invalidCaseErrorInfo.ToString()));
 				return er2.ToString();
 			}
