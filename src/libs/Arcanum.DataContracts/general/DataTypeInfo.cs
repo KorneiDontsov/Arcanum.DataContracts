@@ -19,7 +19,7 @@ namespace Arcanum.DataContracts {
 		public DataTypeInfo (Type dataType) {
 			static IUnionInfo? AsUnionInfo (DataTypeInfo dataTypeInfo) {
 				static ImmutableList<Type> GetPotentialCaseTypes (Type dataType) =>
-					dataType.GetNestedTypes()
+					dataType.EnumerateClosedNestedTypes()
 						.Where(nestedType => nestedType.IsSubclassOf(dataType))
 						.ToImmutableList();
 
