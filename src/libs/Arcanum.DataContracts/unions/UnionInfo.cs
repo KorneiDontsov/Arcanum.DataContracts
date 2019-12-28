@@ -18,16 +18,6 @@ namespace Arcanum.DataContracts {
 
 		public IImmutableList<UnionCaseError> invalidCaseErrors { get; }
 
-		public Type dataType => dataTypeInfo.dataType;
-
-		public IUnionCaseInfo? asUnionCaseInfo => dataTypeInfo.asUnionCaseInfo;
-
-		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
-
-		public IUnionInfo rootUnionInfo => asUnionCaseInfo?.rootUnionInfo ?? this;
-
-		public Boolean hasErrors => invalidCaseErrors.Count > 0 || caseInfos.Count is 0;
-
 		internal UnionInfo
 		(IDataTypeInfo dataTypeInfo,
 		 Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
@@ -54,8 +44,18 @@ namespace Arcanum.DataContracts {
 			invalidCaseErrors = invalidCaseErrorInfosB.ToImmutable();
 		}
 
-		/// <inheritdoc />
-		public override String ToString () => dataType.ToString();
+		/// <inheritdoc cref = "IUnionInfo.ToString()" />
+		public override String ToString () => $"union {dataTypeInfo}";
+
+		public Type dataType => dataTypeInfo.dataType;
+
+		public IUnionCaseInfo? asUnionCaseInfo => dataTypeInfo.asUnionCaseInfo;
+
+		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
+
+		public IUnionInfo rootUnionInfo => asUnionCaseInfo?.rootUnionInfo ?? this;
+
+		public Boolean hasErrors => invalidCaseErrors.Count > 0 || caseInfos.Count is 0;
 
 		/// <summary>
 		///     Must not be invoked for union that doesn't have errors.

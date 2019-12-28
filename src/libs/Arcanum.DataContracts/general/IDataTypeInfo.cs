@@ -14,6 +14,7 @@ namespace Arcanum.DataContracts {
 
 		Boolean isUnionCaseInfo { get; }
 
+		/// <inheritdoc cref = "Object.ToString()" />
 		String ToString ();
 	}
 }

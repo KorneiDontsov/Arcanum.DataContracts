@@ -25,6 +25,9 @@ namespace Arcanum.DataContracts {
 
 		Boolean hasErrors { get; }
 
+		/// <inheritdoc cref = "Object.ToString()" />
+		String ToString ();
+
 		String GetErrorString ();
 	}
 }

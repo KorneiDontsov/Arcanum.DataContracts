@@ -51,6 +51,6 @@ namespace Arcanum.DataContracts {
 			asUnionCaseInfo = new UnionCaseInfo(this, declaringUnionInfo);
 
 		/// <inheritdoc cref = "IDataTypeInfo.ToString()" />
-		public override String ToString () => dataType.ToString();
+		public override String ToString () => dataType.FullName;
 	}
 }
