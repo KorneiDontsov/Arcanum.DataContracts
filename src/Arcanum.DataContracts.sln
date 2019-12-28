@@ -7,15 +7,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libs", "libs", "{05A95A25-E
 ProjectSection(SolutionItems) = preProject
 	libs\Directory.Build.props = libs\Directory.Build.props
 EndProjectSection
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts", "libs\Arcanum.DataContracts\Arcanum.DataContracts.csproj", "{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts", "libs\Arcanum.DataContracts\Arcanum.DataContracts.csproj", "{61F7CB19-CFD4-4E3F-AEBE-88071156FEF3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BAF19C5E-988A-4EEA-AF27-BC43ACE73276}"
 ProjectSection(SolutionItems) = preProject
 	Tests\Directory.Build.props = Tests\Directory.Build.props
 EndProjectSection
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts.Tests", "Tests\Arcanum.DataContracts.Tests\Arcanum.DataContracts.Tests.csproj", "{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arcanum.DataContracts.Tests", "Tests\Arcanum.DataContracts.Tests\Arcanum.DataContracts.Tests.csproj", "{85C1225B-DEE9-4EDB-8E93-A7AD33AC60C1}"
 EndProject
 Global
 	GlobalSection(NestedProjects) = preSolution
