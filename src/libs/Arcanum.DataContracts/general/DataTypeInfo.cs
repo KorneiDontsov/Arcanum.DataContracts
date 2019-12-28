@@ -16,10 +16,10 @@ namespace Arcanum.DataContracts {
 
 		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
 
-		DataTypeInfo (Type dataType, UnionInfo? declaringUnionInfo = null) {
+		public DataTypeInfo (Type dataType) {
 			static IUnionInfo? AsUnionInfo (DataTypeInfo dataTypeInfo) {
 				static ImmutableList<Type> GetPotentialCaseTypes (Type dataType) =>
-					dataType.GetNestedTypes()
+					dataType.EnumerateClosedNestedTypes()
 						.Where(nestedType => nestedType.IsSubclassOf(dataType))
 						.ToImmutableList();
 
@@ -42,28 +42,15 @@ namespace Arcanum.DataContracts {
 						: null;
 			}
 
-			static IUnionCaseInfo? AsUnionCaseInfo (DataTypeInfo dataTypeInfo, UnionInfo? declaringUnionInfo = null) =>
-				declaringUnionInfo is null ? null : new UnionCaseInfo(dataTypeInfo, declaringUnionInfo);
-
 			this.dataType = dataType;
 			asUnionInfo = AsUnionInfo(dataTypeInfo: this);
-			asUnionCaseInfo = AsUnionCaseInfo(dataTypeInfo: this, declaringUnionInfo);
 		}
 
-		internal static IDataTypeInfo Create (Type dataType, IDataTypeInfoFactory factory) {
-			static Exception MustBeClassOrStructure (Type dataType) =>
-				new Exception($"'dataType' must be class or structure. Accepted {dataType.AssemblyQualifiedName}.");
-
-			static IUnionCaseInfo? TryFindCaseInfo (Type dataType, IDataTypeInfoFactory factory) =>
-				factory.Get(dataType.DeclaringType).asUnionInfo?.caseInfosByTypes.GetValueOrDefault(dataType);
-
-			return
-				! dataType.IsClass && ! dataType.IsValueType ? throw MustBeClassOrStructure(dataType)
-				: dataType.IsNested && TryFindCaseInfo(dataType, factory) is { } caseInfo ? caseInfo.dataTypeInfo
-				: new DataTypeInfo(dataType);
-		}
+		DataTypeInfo (Type dataType, UnionInfo declaringUnionInfo):
+			this(dataType) =>
+			asUnionCaseInfo = new UnionCaseInfo(this, declaringUnionInfo);
 
 		/// <inheritdoc cref = "IDataTypeInfo.ToString()" />
-		public override String ToString () => dataType.ToString();
+		public override String ToString () => dataType.FullName;
 	}
 }

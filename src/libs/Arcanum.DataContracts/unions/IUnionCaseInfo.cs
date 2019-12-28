@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
 
 namespace Arcanum.DataContracts {
+	using Arcanum.Routes;
 	using System;
 
 	public interface IUnionCaseInfo {
@@ -8,7 +9,7 @@ namespace Arcanum.DataContracts {
 
 		IUnionInfo declaringUnionInfo { get; }
 
-		UnionCaseName name { get; }
+		String name { get; }
 
 		Type dataType { get; }
 
@@ -19,5 +20,11 @@ namespace Arcanum.DataContracts {
 		IUnionInfo rootUnionInfo { get; }
 
 		IUnionCaseInfo? maybeDeclaringCaseInfo { get; }
+
+		/// <exception cref="InvalidOperationException"/>
+		Route route { get; }
+
+		/// <inheritdoc cref = "Object.ToString()" />
+		String ToString ();
 	}
 }

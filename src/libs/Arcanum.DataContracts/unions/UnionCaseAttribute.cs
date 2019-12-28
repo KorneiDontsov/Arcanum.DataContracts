@@ -4,14 +4,14 @@ namespace Arcanum.DataContracts {
 	using System;
 
 	public interface IUnionCaseAttribute {
-		UnionCaseName name { get; }
+		String name { get; }
 	}
 
 	public sealed class UnionCaseAttribute: Attribute, IUnionCaseAttribute {
-		public UnionCaseName name { get; }
+		public String name { get; }
 
 		/// <inheritdoc />
 		/// <param name = "name"> Must contain only latin letters, digits and underscores. </param>
-		public UnionCaseAttribute (String name) => this.name = UnionCaseName.Create(name);
+		public UnionCaseAttribute (String name) => this.name = name;
 	}
 }
