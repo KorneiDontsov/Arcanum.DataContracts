@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
 
 namespace Arcanum.DataContracts {
-	using Arcanum.Routes;
 	using System;
 
 	class UnionCaseInfo: IUnionCaseInfo {
@@ -24,9 +23,9 @@ namespace Arcanum.DataContracts {
 
 		public Type dataType => dataTypeInfo.dataType;
 
-		public IUnionInfo? asDiscriminatedUnionInfo => dataTypeInfo.asUnionInfo;
+		public IUnionInfo? asUnionInfo => dataTypeInfo.asUnionInfo;
 
-		public Boolean isDiscriminatedUnionInfo => asDiscriminatedUnionInfo is { };
+		public Boolean isUnionInfo => asUnionInfo is { };
 
 		public IUnionCaseInfo? maybeDeclaringCaseInfo => declaringUnionInfo.asUnionCaseInfo;
 
@@ -43,26 +42,6 @@ namespace Arcanum.DataContracts {
 				}
 
 				return lazyRootUnionInfo ??= Create();
-			}
-		}
-
-		Route? lazyRoute;
-
-		/// <inheritdoc />
-		public Route route {
-			get {
-				Route Create () {
-					if (name.IndexOf('/') is var slashPos && slashPos >= 0)
-						throw new InvalidOperationException(
-							$"Union case cannot have 'Route' because its name '{name}' contains invalid character '/'" +
-							$" at {slashPos}.");
-					else if (maybeDeclaringCaseInfo is { } parent)
-						return parent.route.Add(name);
-					else
-						return Route.Unit(name);
-				}
-
-				return lazyRoute ??= Create();
 			}
 		}
 	}

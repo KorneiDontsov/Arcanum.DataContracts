@@ -21,7 +21,7 @@ namespace Arcanum.DataContracts {
 
 			/// <inheritdoc />
 			public override String ToString () =>
-				$"Name '{caseInfo.name}' of discriminated union case {caseInfo} duplicates name of neighboring case " +
+				$"Name '{caseInfo.name}' of union case {caseInfo} duplicates name of neighboring case " +
 				$"{sameNameCaseInfo}.";
 		}
 		#endregion
