@@ -7,7 +7,7 @@ namespace Arcanum.DataContracts.Tests {
 	using System;
 	using System.Linq;
 	using Xunit;
-	using static Arcanum.DataContracts.DataContractModule;
+	using static Arcanum.DataContracts.Module;
 
 	public class TestDataTypeInfo {
 		[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
