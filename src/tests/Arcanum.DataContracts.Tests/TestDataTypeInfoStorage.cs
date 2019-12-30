@@ -3,7 +3,7 @@
 namespace Arcanum.DataContracts.Tests {
 	using FluentAssertions;
 	using Xunit;
-	using static Arcanum.DataContracts.DataContractModule;
+	using static Arcanum.DataContracts.Module;
 
 	public class TestDataTypeInfoStorage {
 		sealed class SomeData { }

@@ -5,7 +5,7 @@ namespace Arcanum.DataContracts {
 	using System.Collections.Concurrent;
 	using System.Collections.Immutable;
 
-	public static class DataContractModule {
+	public static class Module {
 		static ConcurrentDictionary<Type, IDataTypeInfo> dataTypeInfoStorage { get; }
 			= new ConcurrentDictionary<Type, IDataTypeInfo>();
 
