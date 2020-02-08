@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
 
 namespace Arcanum.DataContracts {
+	using Arcanum.Companions;
 	using System;
 
 	class UnionCaseInfo: IUnionCaseInfo {
@@ -10,12 +11,12 @@ namespace Arcanum.DataContracts {
 
 		public String name { get; }
 
-		internal UnionCaseInfo (IDataTypeInfo dataTypeInfo, IUnionInfo declaringUnionInfo) {
+		public UnionCaseInfo (IDataTypeInfo dataTypeInfo, IUnionInfo declaringUnionInfo) {
+			var t = dataTypeInfo.dataType;
+
 			this.dataTypeInfo = dataTypeInfo;
 			this.declaringUnionInfo = declaringUnionInfo;
-			name =
-				dataTypeInfo.dataType.MatchCustomAttribute<IUnionCaseAttribute>()?.name
-				?? dataTypeInfo.dataType.Name;
+			name = t.MayGetCompanion<IUnionCaseNameProvider>()?.GetUnionCaseName(t) ?? t.Name;
 		}
 
 		/// <inheritdoc cref = "IUnionCaseInfo.ToString()" />

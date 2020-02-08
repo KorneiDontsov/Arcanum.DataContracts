@@ -19,7 +19,7 @@ namespace Arcanum.DataContracts.Tests {
 
 		public abstract class UnionDataExample {
 			[UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
-			[UnionCase("Case1Name")]
+			[UnionCaseName("Case1Name")]
 			public sealed class Case1: UnionDataExample {
 				public Byte[]? salt { get; set; }
 			}
