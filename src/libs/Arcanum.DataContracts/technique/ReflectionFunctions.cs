@@ -4,18 +4,8 @@ namespace Arcanum.DataContracts {
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
-	using System.Reflection;
 
 	static class ReflectionFunctions {
-		public static TAttr? MatchCustomAttribute<TAttr> (this MemberInfo type)
-		where TAttr: class {
-			foreach (var attribute in type.GetCustomAttributes())
-				if (attribute is TAttr matched)
-					return matched;
-
-			return null;
-		}
-
 		public static IEnumerable<Type> EnumerateClosedNestedTypes (this Type type) {
 			static IEnumerable<Type> OfCommonType (Type type) {
 				foreach (var nestedType in type.GetNestedTypes())

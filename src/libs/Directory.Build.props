@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <RepositoryUrl>https://github.com/KorneiDontsov/Arcanum.Routes</RepositoryUrl>
+        <RepositoryUrl>https://github.com/KorneiDontsov/Arcanum.DataContracts</RepositoryUrl>
         <Authors>KorneiDontsov</Authors>
         <Copyright>Copyright © Kornei Dontsov 2019</Copyright>
         <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
