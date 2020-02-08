@@ -33,6 +33,10 @@ namespace Arcanum.DataContracts.Tests {
 			public sealed class Case2: Case2Base {
 				public String? saltText { get; set; }
 			}
+
+			[NotUnionCase]
+			[UsedImplicitly]
+			public sealed class NotCase: UnionDataExample { }
 		}
 
 		public abstract class OfData<T> {
