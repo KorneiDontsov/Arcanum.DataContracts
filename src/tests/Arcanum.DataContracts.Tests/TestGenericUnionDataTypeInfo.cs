@@ -8,7 +8,7 @@ namespace Arcanum.DataContracts.Tests {
 	using static Arcanum.DataContracts.Module;
 
 	public class TestGenericUnionDataTypeInfo {
-		public abstract class GenericUnionExample<T> {
+		public abstract class GenericUnionExample<T> where T: struct {
 			public sealed class Case1: GenericUnionExample<T> {
 				public T item { get; }
 
@@ -16,7 +16,7 @@ namespace Arcanum.DataContracts.Tests {
 			}
 		}
 
-		IDataTypeInfo dataTypeInfo { get; } = GetDataTypeInfo(typeof(GenericUnionExample<Object>));
+		IDataTypeInfo dataTypeInfo { get; } = GetDataTypeInfo(typeof(GenericUnionExample<Byte>));
 
 		[Fact]
 		public void HasUnionInfo () =>
@@ -32,6 +32,6 @@ namespace Arcanum.DataContracts.Tests {
 				.Select(i => (type: i.dataType, i.name))
 				.Should()
 				.BeEquivalentTo(
-					(typeof(GenericUnionExample<Object>.Case1), "Case1"));
+					(typeof(GenericUnionExample<Byte>.Case1), "Case1"));
 	}
 }
