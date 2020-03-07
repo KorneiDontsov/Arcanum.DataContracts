@@ -18,9 +18,7 @@ namespace Arcanum.DataContracts {
 
 		public IImmutableList<UnionCaseError> invalidCaseErrors { get; }
 
-		public UnionInfo
-		(IDataTypeInfo dataTypeInfo,
-		 Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
+		public UnionInfo (IDataTypeInfo dataTypeInfo, Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
 			this.dataTypeInfo = dataTypeInfo;
 
 			var caseInfosB = ImmutableList.CreateBuilder<IUnionCaseInfo>();
