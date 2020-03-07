@@ -13,11 +13,15 @@ namespace Arcanum.DataContracts {
 			static Exception MustBeClassOrStructure (Type dataType) =>
 				new Exception($"'dataType' must be class or structure. Accepted {dataType.AssemblyQualifiedName}.");
 
+			static Exception MustNotBeOpenGenericType (Type dataType) =>
+				new Exception($"'dataType' must not be open generic type. Accepted {dataType.AssemblyQualifiedName}.");
+
 			static IUnionCaseInfo? MaybeCaseInfo (Type dataType) =>
 				GetDataTypeInfo(dataType.DeclaringType).asUnionInfo?.caseInfosByTypes.GetValueOrDefault(dataType);
 
 			static IDataTypeInfo CreateDataTypeInfo (Type dataType) =>
 				! dataType.IsClass && ! dataType.IsValueType ? throw MustBeClassOrStructure(dataType)
+				: dataType.IsGenericTypeDefinition ? throw MustNotBeOpenGenericType(dataType)
 				: dataType.IsNested && MaybeCaseInfo(dataType) is { } caseInfo ? caseInfo.dataTypeInfo
 				: new DataTypeInfo(dataType);
 
