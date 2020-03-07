@@ -1,0 +1,10 @@
+﻿// Copyright (c) Kornei Dontsov. All Rights Reserved. Licensed under the MIT. See LICENSE in the project root for license information.
+
+namespace Arcanum.DataContracts {
+	public class DataContract {
+		public PrepareSamples? mayPrepareSamples { get; }
+
+		public DataContract (PrepareSamples? mayPrepareSamples = null) =>
+			this.mayPrepareSamples = mayPrepareSamples;
+	}
+}

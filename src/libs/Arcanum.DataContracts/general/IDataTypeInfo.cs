@@ -6,6 +6,8 @@ namespace Arcanum.DataContracts {
 	public interface IDataTypeInfo {
 		Type dataType { get; }
 
+		DataContract contract { get; }
+
 		IUnionInfo? asUnionInfo { get; }
 
 		Boolean isUnionInfo { get; }

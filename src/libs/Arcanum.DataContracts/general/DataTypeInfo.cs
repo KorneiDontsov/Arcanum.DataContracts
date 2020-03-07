@@ -6,16 +6,25 @@ namespace Arcanum.DataContracts {
 	using System.Collections.Generic;
 	using System.Collections.Immutable;
 	using System.Linq;
+	using static Arcanum.DataContracts.DataContractModule;
 
 	class DataTypeInfo: IDataTypeInfo {
+		/// <inheritdoc />
 		public Type dataType { get; }
 
+		/// <inheritdoc />
+		public DataContract contract { get; }
+
+		/// <inheritdoc />
 		public IUnionInfo? asUnionInfo { get; }
 
+		/// <inheritdoc />
 		public Boolean isUnionInfo => asUnionInfo is { };
 
+		/// <inheritdoc />
 		public IUnionCaseInfo? asUnionCaseInfo { get; }
 
+		/// <inheritdoc />
 		public Boolean isUnionCaseInfo => asUnionCaseInfo is { };
 
 		public DataTypeInfo (Type dataType) {
@@ -46,6 +55,7 @@ namespace Arcanum.DataContracts {
 					: null;
 
 			this.dataType = dataType;
+			contract = CreateDataContract(dataType);
 			asUnionInfo = AsUnionInfo(dataTypeInfo: this);
 		}
 

@@ -18,9 +18,7 @@ namespace Arcanum.DataContracts {
 
 		public IImmutableList<UnionCaseError> invalidCaseErrors { get; }
 
-		public UnionInfo
-		(IDataTypeInfo dataTypeInfo,
-		 Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
+		public UnionInfo (IDataTypeInfo dataTypeInfo, Func<UnionInfo, IEnumerable<IUnionCaseInfo>> enumerateCaseInfos) {
 			this.dataTypeInfo = dataTypeInfo;
 
 			var caseInfosB = ImmutableList.CreateBuilder<IUnionCaseInfo>();
@@ -30,7 +28,7 @@ namespace Arcanum.DataContracts {
 			var invalidCaseErrorInfosB = ImmutableList.CreateBuilder<UnionCaseError>();
 
 			foreach (var caseInfo in enumerateCaseInfos(this))
-				if (caseInfosByNamesB.GetValueOrDefault(caseInfo.name) is { } sameNameCaseInfo)
+				if (caseInfosByNamesB.TryGetValue(caseInfo.name, out var sameNameCaseInfo))
 					invalidCaseErrorInfosB.Add(new UnionCaseError.HasDuplicateName(caseInfo, sameNameCaseInfo));
 				else {
 					caseInfosB.Add(caseInfo);
