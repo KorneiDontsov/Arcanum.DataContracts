@@ -3,7 +3,6 @@
 namespace Arcanum.DataContracts {
 	using Arcanum.Routes;
 	using System;
-	using System.Collections.Immutable;
 
 	public static class UnionInfoFunctions {
 		/// <exception cref = "FormatException">
@@ -17,8 +16,8 @@ namespace Arcanum.DataContracts {
 				var currentUnionInfo = unionInfo;
 				while (true) {
 					var caseName = caseRouteEnumerator.Current;
-					var nextCaseInfo = currentUnionInfo.caseInfosByNames.GetValueOrDefault(caseName);
-					if (nextCaseInfo is null) {
+					var hasNextCaseInfo = currentUnionInfo.caseInfosByNames.TryGetValue(caseName, out var nextCaseInfo);
+					if (! hasNextCaseInfo) {
 						var msg =
 							$"Route '{caseRoute}' doesn't match any case in {unionInfo}: "
 							+ $"'{currentUnionInfo}' doesn't contain '{caseName}'.";
